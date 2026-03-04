@@ -1,8 +1,15 @@
 # chrome-extension-testing
 
+[![npm version](https://img.shields.io/npm/v/chrome-extension-testing)](https://npmjs.com/package/chrome-extension-testing)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![Discord](https://img.shields.io/badge/Discord-Zovo-blueviolet.svg?logo=discord)](https://discord.gg/zovo)
+[![Website](https://img.shields.io/badge/Website-zovo.one-blue)](https://zovo.one)
+[![GitHub Stars](https://img.shields.io/github/stars/theluckystrike/chrome-extension-testing?style=social)](https://github.com/theluckystrike/chrome-extension-testing)
+
 > Testing utilities for Chrome extensions -- realistic `chrome.*` API mocks for Jest, custom matchers, and test helpers.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+Part of the [Zovo](https://zovo.one) developer tools family.
 
 ## Install
 
@@ -268,3 +275,23 @@ test('toHaveStorageValue matcher', async () => {
 ## License
 
 MIT
+
+## See Also
+
+- [chrome-extension-starter-mv3](https://github.com/theluckystrike/chrome-extension-starter-mv3) - Production-ready Chrome Extension starter template
+- [jest-webextension-mock](https://github.com/theluckystrike/jest-webextension-mock) - Another mock for webextension APIs
+- [chrome-devtools-kit](https://github.com/theluckystrike/chrome-devtools-kit) - Build custom DevTools panels
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+Built by [Zovo](https://zovo.one)
