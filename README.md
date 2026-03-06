@@ -1,27 +1,22 @@
 # chrome-extension-testing
 
 [![npm version](https://img.shields.io/npm/v/chrome-extension-testing)](https://npmjs.com/package/chrome-extension-testing)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
-[![Discord](https://img.shields.io/badge/Discord-Zovo-blueviolet.svg?logo=discord)](https://discord.gg/zovo)
-[![Website](https://img.shields.io/badge/Website-zovo.one-blue)](https://zovo.one)
-[![GitHub Stars](https://img.shields.io/github/stars/theluckystrike/chrome-extension-testing?style=social)](https://github.com/theluckystrike/chrome-extension-testing)
 
-> Testing utilities for Chrome extensions -- realistic `chrome.*` API mocks for Jest, custom matchers, and test helpers.
+Testing utilities for Chrome extensions. Provides realistic in-memory mocks for the chrome.storage, chrome.tabs, chrome.runtime, chrome.alarms, and chrome.notifications APIs. Includes custom Jest matchers and lifecycle helpers for setting up and tearing down test environments.
 
-Part of the [Zovo](https://zovo.one) developer tools family.
+Built for Manifest V3 extensions. Works with Jest 29+.
 
-## Install
+INSTALL
 
 ```bash
 npm install --save-dev chrome-extension-testing
 ```
 
-Peer dependency: `jest >= 29.0.0` (optional).
+Peer dependency jest >= 29.0.0 is optional.
 
-## Usage
-
-### Basic Setup
+QUICK START
 
 ```typescript
 import { setupChromeEnv, resetChromeEnv } from 'chrome-extension-testing';
@@ -36,7 +31,7 @@ test('saves settings to chrome.storage.local', async () => {
 });
 ```
 
-### Message Passing
+MESSAGE PASSING
 
 ```typescript
 import { setupChromeEnv, resetChromeEnv } from 'chrome-extension-testing';
@@ -54,14 +49,13 @@ test('handles runtime messages', async () => {
 });
 ```
 
-### Tab Management
+TAB MANAGEMENT
 
 ```typescript
 import { MockChromeTabs } from 'chrome-extension-testing';
 
 const tabs = new MockChromeTabs();
 
-// Seed tabs for testing
 tabs.addTab({ url: 'https://example.com', title: 'Example', active: true });
 tabs.addTab({ url: 'https://github.com', title: 'GitHub' });
 
@@ -80,7 +74,7 @@ test('creates and removes tabs', async () => {
 });
 ```
 
-### Storage with Change Listeners
+STORAGE WITH CHANGE LISTENERS
 
 ```typescript
 import { MockChromeStorage } from 'chrome-extension-testing';
@@ -106,7 +100,7 @@ test('seed storage with initial data', () => {
 });
 ```
 
-### Alarms
+ALARMS
 
 ```typescript
 import { MockChromeAlarms } from 'chrome-extension-testing';
@@ -126,7 +120,7 @@ test('fires alarm callbacks', async () => {
 });
 ```
 
-### Notifications
+NOTIFICATIONS
 
 ```typescript
 import { MockChromeNotifications } from 'chrome-extension-testing';
@@ -153,7 +147,7 @@ test('creates and clicks notifications', async () => {
 });
 ```
 
-### Simulating Install and Update Events
+INSTALL AND UPDATE EVENTS
 
 ```typescript
 import { setupChromeEnv, resetChromeEnv, simulateInstall, simulateUpdate } from 'chrome-extension-testing';
@@ -178,7 +172,7 @@ test('handles extension update', () => {
 });
 ```
 
-### Custom Jest Matchers
+CUSTOM JEST MATCHERS
 
 ```typescript
 import { registerMatchers, MockChromeStorage } from 'chrome-extension-testing';
@@ -194,113 +188,35 @@ test('toHaveStorageValue matcher', async () => {
 });
 ```
 
-## Supported APIs
+SUPPORTED APIS
 
-| Mock Class | API | Methods and Events |
+| Mock Class | Chrome API | Methods and Events |
 | --- | --- | --- |
-| `MockChromeStorage` | `chrome.storage` | `local`, `sync`, `session` areas -- `get`, `set`, `remove`, `clear`, `getBytesInUse`, `onChanged` |
-| `MockChromeTabs` | `chrome.tabs` | `query`, `get`, `create`, `remove`, `update`, `reload`, `discard`, `group`, `ungroup`, `onCreated`, `onRemoved`, `onUpdated`, `onActivated` |
-| `MockChromeRuntime` | `chrome.runtime` | `sendMessage`, `onMessage`, `onInstalled`, `getManifest`, `getURL`, `id`, `lastError` |
-| `MockChromeAlarms` | `chrome.alarms` | `create`, `get`, `getAll`, `clear`, `clearAll`, `onAlarm` |
-| `MockChromeNotifications` | `chrome.notifications` | `create`, `clear`, `getAll`, `onClicked`, `onClosed` |
+| MockChromeStorage | chrome.storage | local, sync, session areas with get, set, remove, clear, getBytesInUse, onChanged |
+| MockChromeTabs | chrome.tabs | query, get, create, remove, update, reload, discard, group, ungroup, onCreated, onRemoved, onUpdated, onActivated |
+| MockChromeRuntime | chrome.runtime | sendMessage, onMessage, onInstalled, getManifest, getURL, id, lastError |
+| MockChromeAlarms | chrome.alarms | create, get, getAll, clear, clearAll, onAlarm |
+| MockChromeNotifications | chrome.notifications | create, clear, getAll, onClicked, onClosed |
 
-## API
+HELPERS
 
-### Helpers
-
-| Function | Signature | Description |
-| --- | --- | --- |
-| `setupChromeEnv` | `() => void` | Set up `global.chrome` with all mocks. Call in `beforeEach`. |
-| `resetChromeEnv` | `() => void` | Reset all mock state. Call in `afterEach`. |
-| `simulateInstall` | `() => void` | Fire `onInstalled` listeners with `reason: 'install'`. |
-| `simulateUpdate` | `(previousVersion?: string) => void` | Fire `onInstalled` listeners with `reason: 'update'`. |
-| `getMocks` | `() => { storage, tabs, runtime, alarms, notifications }` | Get mock instances for direct manipulation. |
-
-### Matchers
-
-| Matcher | Signature | Description |
-| --- | --- | --- |
-| `toHaveStorageValue` | `(key: string, expectedValue: unknown)` | Assert a storage object contains a specific key-value pair. |
-| `toHaveSentMessage` | `(expectedMessage: unknown)` | Assert a message was sent through runtime messaging. |
-| `registerMatchers` | `() => void` | Register all custom matchers with Jest's `expect.extend`. |
-
-### MockChromeStorage
-
-| Method | Description |
+| Function | Description |
 | --- | --- |
-| `api` | Returns the full `chrome.storage` mock object (`local`, `sync`, `session`, `onChanged`). |
-| `getStore(area: string)` | Get a copy of the raw storage data for assertions. |
-| `seed(area: string, data: Record<string, unknown>)` | Pre-populate a storage area with data. |
-| `reset()` | Clear all areas and listeners. |
+| setupChromeEnv() | Sets up global.chrome with all mocks. Call in beforeEach. |
+| resetChromeEnv() | Resets all mock state. Call in afterEach. |
+| simulateInstall() | Fires onInstalled listeners with reason install. |
+| simulateUpdate(previousVersion?) | Fires onInstalled listeners with reason update. |
+| getMocks() | Returns all mock instances for direct manipulation. |
+| registerMatchers() | Registers toHaveStorageValue and toHaveSentMessage with Jest expect.extend. |
 
-### MockChromeTabs
+LICENSE
 
-| Method | Description |
-| --- | --- |
-| `api` | Returns the full `chrome.tabs` mock object. |
-| `addTab(props?: Partial<MockTab>)` | Add a tab to the virtual tab pool (for setup, does not fire `onCreated`). Returns the tab. |
-| `count` | Get the current number of tabs. |
-| `reset()` | Remove all tabs and reset ID counter. |
+MIT. See LICENSE file.
 
-### MockChromeRuntime
+CONTRIBUTING
 
-| Method | Description |
-| --- | --- |
-| `api` | Returns the full `chrome.runtime` mock object. |
-| `simulateInstall()` | Fire `onInstalled` with `reason: 'install'`. |
-| `simulateUpdate(previousVersion?: string)` | Fire `onInstalled` with `reason: 'update'`. Default previous version: `'0.9.0'`. |
-| `getSentMessages()` | Get array of all sent messages and their responses. |
-| `setManifest(data: Record<string, unknown>)` | Override manifest data returned by `getManifest()`. |
-| `reset()` | Clear all listeners and sent messages. |
-
-### MockChromeAlarms
-
-| Method | Description |
-| --- | --- |
-| `api` | Returns the full `chrome.alarms` mock object. |
-| `fireAlarm(name: string)` | Manually trigger alarm listeners for a specific alarm. |
-| `fireAll()` | Trigger alarm listeners for all registered alarms. |
-| `reset()` | Clear all alarms and listeners. |
-
-### MockChromeNotifications
-
-| Method | Description |
-| --- | --- |
-| `api` | Returns the full `chrome.notifications` mock object. |
-| `simulateClick(id: string)` | Fire `onClicked` listeners with the given notification ID. |
-| `simulateClose(id: string)` | Fire `onClosed` listeners with the given notification ID. |
-| `getNotification(id: string)` | Get the stored notification data by ID. |
-| `reset()` | Clear all notifications and listeners. |
-
-## License
-
-MIT
-
-## See Also
-
-### Related Zovo Repositories
-
-- [chrome-extension-starter-mv3](https://github.com/theluckystrike/chrome-extension-starter-mv3) - Production-ready Chrome Extension starter template
-- [awesome-chrome-extensions-dev](https://github.com/theluckystrike/awesome-chrome-extensions-dev) - Curated list of Chrome extension development resources
-- [chrome-storage-plus](https://github.com/theluckystrike/chrome-storage-plus) - Type-safe storage wrapper
-
-### Zovo Chrome Extensions
-
-- [Zovo Tab Manager](https://chrome.google.com/webstore/detail/zovo-tab-manager) - Manage tabs efficiently
-- [Zovo Focus](https://chrome.google.com/webstore/detail/zovo-focus) - Block distractions
-
-Visit [zovo.one](https://zovo.one) for more information.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+See CONTRIBUTING.md for guidelines.
 
 ---
 
-Built by [Zovo](https://zovo.one)
+Built by theluckystrike. Visit [zovo.one](https://zovo.one) for more.
