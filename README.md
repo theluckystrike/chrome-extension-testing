@@ -1,8 +1,9 @@
-# chrome-extension-testing
+[![CI](https://github.com/theluckystrike/chrome-extension-testing/actions/workflows/ci.yml/badge.svg)](https://github.com/theluckystrike/chrome-extension-testing/actions)
+[![npm](https://img.shields.io/npm/v/chrome-extension-testing)](https://www.npmjs.com/package/chrome-extension-testing)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 
-[![npm version](https://img.shields.io/npm/v/chrome-extension-testing)](https://npmjs.com/package/chrome-extension-testing)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+# chrome-extension-testing
 
 Testing utilities for Chrome extensions. Provides realistic in-memory mocks for the chrome.storage, chrome.tabs, chrome.runtime, chrome.alarms, and chrome.notifications APIs. Includes custom Jest matchers and lifecycle helpers for setting up and tearing down test environments.
 
@@ -218,5 +219,4 @@ CONTRIBUTING
 See CONTRIBUTING.md for guidelines.
 
 ---
-
-Built by theluckystrike. Visit [zovo.one](https://zovo.one) for more.
+Built by [theluckystrike](https://github.com/theluckystrike) — [zovo.one](https://zovo.one)
