@@ -34,7 +34,7 @@ export class MockChromeTabs {
                 return Promise.resolve(this.tabs.filter((tab) => {
                     for (const [key, value] of Object.entries(queryInfo)) {
                         if (key === 'windowId' && value === -2) continue; // WINDOW_ID_CURRENT
-                        if ((tab as Record<string, unknown>)[key] !== value) return false;
+                        if ((tab as unknown as Record<string, unknown>)[key] !== value) return false;
                     }
                     return true;
                 }));
